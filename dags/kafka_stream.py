@@ -4,9 +4,10 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 default_args = {
-    'owner': 'airscholar',
+    'owner': 'Duy Anh Nguyen',
     'start_date': datetime(2023, 9, 3, 10, 00)
 }
+
 
 def get_data():
     import requests
@@ -16,6 +17,7 @@ def get_data():
     res = res['results'][0]
 
     return res
+
 
 def format_data(res):
     data = {}
@@ -35,6 +37,7 @@ def format_data(res):
     data['picture'] = res['picture']['medium']
 
     return data
+
 
 def stream_data():
     import json
@@ -56,6 +59,7 @@ def stream_data():
         except Exception as e:
             logging.error(f'An error occured: {e}')
             continue
+
 
 with DAG('user_automation',
          default_args=default_args,
